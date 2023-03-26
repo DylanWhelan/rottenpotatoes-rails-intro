@@ -23,7 +23,12 @@
       class: ('bg-warning hilite' if @sort_by.eql? "title") %>
       </th>
       <th>Rating</th>
-      <th><a id="release_date_header"><%= link_to "Release Date", movies_path(:sort_by=>"release_date", :ratings => params[:ratings]), class: ('bg-warning hilite' if @sort_by.eql? "release_date") %></a></th>
+      <th>
+      <%= link_to "Release Date",
+      movies_path(:sort_by=>"release_date", :ratings => params[:ratings]),
+      id: "release_date_header",
+      class: ('bg-warning hilite' if @sort_by.eql? "release_date") %>
+      </th>
       <th>More Info</th>
     </tr>
   </thead>
