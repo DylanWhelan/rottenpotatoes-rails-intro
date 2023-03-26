@@ -7,16 +7,29 @@ class MoviesController < ApplicationController
   end
 
   def index
-    #if params[].eql? nil then
-    #end
+    
     @all_ratings = Movie.all_ratings
-    if !params[:ratings].eql? nil then
-      @ratings_to_show = params[:ratings].keys
+    if params[:ratings].nil? then
+      if session[:ratings].nil? then
+        @ratings_to_show = @all_ratings
+      else
+        @ratings_to_show = session[:ratings].keys
+      end
     else
-      @ratings_to_show = @all_ratings
+      @ratings_to_show = params[:ratings].keys
+      session[:ratings] = params[:ratings]
     end
-    flash[:notice] = "#{params[:sort_by]}"
-    @movies = Movie.with_ratings(params[:ratings], params[:sort_by])
+    if params[:sort_by].nil? then
+      if session[:ratings].nil? then
+        @sort_by = nil
+      else
+        @sort_by = session[:sort_by]
+      end
+    else
+      @sort_by = params[:sort_by]
+      session[:sort_by] = params[:sort_by]
+    end
+    @movies = Movie.with_ratings(@ratings_to_show, @sort_by)
   end
 
   def new

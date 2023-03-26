@@ -10,7 +10,7 @@ class Movie < ActiveRecord::Base
     if ratings_list.eql? nil then
       ratings_to_check = all_ratings
     else
-      ratings_to_check = ratings_list.keys
+      ratings_to_check = ratings_list
     end
     if sort_by.eql? nil then
       Movie.where(rating: ratings_to_check)
