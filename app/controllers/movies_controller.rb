@@ -7,11 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
+    if params[].eql? nil then
+    end
     @all_ratings = Movie.all_ratings
     if !params[:ratings].eql? nil then
       @ratings_to_show = params[:ratings].keys
     else
-      @ratings_to_show = []
+      @ratings_to_show = @all_ratings
     end
     flash[:notice] = "#{params[:sort_by]}"
     @movies = Movie.with_ratings(params[:ratings], params[:sort_by])
