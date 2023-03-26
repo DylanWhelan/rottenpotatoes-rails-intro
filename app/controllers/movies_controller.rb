@@ -7,7 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @all_ratings = Movie.all_ratings
+    if !params[:ratings].eql? nil then
+      @ratings_to_show = params[:ratings].keys
+    else
+      @ratings_to_show = []
+    end
+    @movies = Movie.with_ratings(params[:ratings])
   end
 
   def new
